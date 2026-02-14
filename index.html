@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Valentine Sofia</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      height: 100vh;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+
+    /* Clearer background image */
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("https://i.ibb.co/LzKjHXjP/1770974813148.jpg") center / cover no-repeat;
+      filter: blur(4px) brightness(0.55); /* reduced blur */
+      transform: scale(1.1); /* slight zoom */
+      z-index: -2;
+      animation: bgZoom 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes bgZoom {
+      0% { transform: scale(1.1); }
+      100% { transform: scale(1.15); }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #ff5e7a;
+      transform: rotate(45deg);
+      animation: fall linear infinite;
+      z-index: -1;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background: #ff5e7a;
+      border-radius: 50%;
+    }
+    .heart::before { top: -6px; left: 0; }
+    .heart::after { top: 0; left: -6px; }
+
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(45deg); opacity: 0; }
+    }
+
+    .card {
+      background: rgba(0,0,0,0.55);
+      padding: 34px 28px;
+      border-radius: 22px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+      animation: fadeIn 1.6s ease;
+      z-index: 1;
+      position: relative;
+    }
+
+    h1 { font-size: 2.2rem; margin-bottom: 10px; letter-spacing: 1px; }
+    .val { font-size: 0.95rem; letter-spacing: 2px; opacity: 0.85; margin-bottom: 16px; text-transform: uppercase; }
+    p { font-size: 1.05rem; line-height: 1.7; opacity: 0.95; margin-bottom: 18px; }
+    .verse { font-size: 0.95rem; font-style: italic; opacity: 0.85; }
+
+    button {
+      margin-top: 26px;
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      background: #f3d6b4;
+      color: #2a1b0f;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      animation: pulse 2s infinite;
+    }
+    button:hover { transform: scale(1.08); box-shadow: 0 12px 26px rgba(0,0,0,0.35); }
+
+    @keyframes pulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.08);} }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(18px);} to {opacity:1; transform:translateY(0);} }
+    @keyframes fadeInMessage { from {opacity:0; transform:translateY(12px);} to {opacity:1; transform:translateY(0);} }
+
+    #message {
+      display: none;
+      margin-top: 20px;
+      font-size: 0.95rem;
+      opacity: 0;
+    }
+
+    @media(max-width:480px){
+      h1{font-size:1.8rem;}
+      p, .verse{font-size:0.95rem;}
+      button{padding:10px 24px; font-size:0.95rem;}
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Sofia 🌿</h1>
+    <div class="val">Happy Valentine’s Day</div>
+
+    <p>
+      Today is a reminder to appreciate<br>
+      people who bring warmth and grace<br>
+      in simple, genuine ways.
+    </p>
+
+    <div class="verse">
+      “The Lord bless you and keep you;<br>
+      the Lord make His face shine upon you.”<br>
+      — Numbers 6:24–26
+    </div>
+
+    <button onclick="reveal()">Tap gently</button>
+
+    <div id="message">
+      Sofia, you make every day brighter 💛<br>
+      May this Valentine’s Day be as special as you are!
+    </div>
+  </div>
+
+  <script>
+    // Generate floating hearts
+    for(let i=0;i<30;i++){
+      const heart = document.createElement('div');
+      heart.className='heart';
+      heart.style.left=Math.random()*100+'vw';
+      heart.style.animationDuration=(3+Math.random()*5)+'s';
+      heart.style.width=heart.style.height=(8+Math.random()*10)+'px';
+      document.body.appendChild(heart);
+    }
+
+    function reveal(){
+      const msg = document.getElementById("message");
+      msg.style.display="block";
+      msg.style.animation="fadeInMessage 1.2s forwards";
+      if(navigator.vibrate){ navigator.vibrate([120,60,120]); }
+    }
+  </script>
+
+</body>
+</html>
